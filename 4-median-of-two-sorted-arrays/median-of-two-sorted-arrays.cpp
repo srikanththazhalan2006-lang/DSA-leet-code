@@ -1,34 +1,28 @@
+
 #include<vector>
 using namespace std;
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int m,n,o;
-        m=nums1.size()-1;
-        n=nums2.size()-1;
-        o=nums1.size()+nums2.size()-1;
-        vector<int> num(nums1.size()+nums2.size());
-        while(n>=0 && m>=0){
-            if( nums1[m]>nums2[n]){
-                num[o--]=nums1[m--];
-            }else{
-                num[o--]=nums2[n--];
+        int m = nums1.size();
+        int n = nums2.size();
+        nums1.resize(m + n);
+        int i = m - 1;
+        int j = n - 1;
+        int k = m + n - 1;
+        while (j >= 0) {
+            if (i >= 0 && nums1[i] > nums2[j]) {
+                nums1[k--] = nums1[i--];
+            } else {
+                nums1[k--] = nums2[j--];
             }
         }
-        while(m>=0){
-            num[o--]=nums1[m--];
+        int size = nums1.size();
+        if (size % 2 == 0) {
+            return (nums1[size / 2 - 1] + nums1[size / 2]) / 2.0;
         }
-        while(n>=0){
-            num[o--]=nums2[n--];
-        }
-        int s=num.size();
-        if(s%2==0){
-            return((num[s/2-1]+num[s/2])/2.0);
-
-                
-        }else{
-            return(num[s/2]);
-        }
-        
+        return nums1[size / 2];
     }
 };
+        
+    
