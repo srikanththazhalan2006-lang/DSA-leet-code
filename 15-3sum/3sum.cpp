@@ -1,53 +1,31 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+#include<set>
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& arr) {
-
-        if(arr.size() < 3)
-            return {};
-
-        // Sort the elements
-        sort(arr.begin(), arr.end());
-
-        // Set automatically removes duplicate triplets
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
         set<vector<int>> result;
-
-        // Fix the first element
-        for(int i = 0; i < arr.size() - 2; i++) {
-
-            // Find the other two using Two Sum
-            int left = i + 1;
-            int right = arr.size() - 1;
-
-            while(left < right) {
-
-                int sum = arr[i] + arr[left] + arr[right];
-
-                if(sum == 0) {
-
-                    result.insert({
-                        arr[i],
-                        arr[left],
-                        arr[right]
-                    });
-
-                    left++;
+        for(int i=0;i<nums.size();i++){
+            int left=i+1;
+            int right=nums.size()-1;
+            int target=nums[i];
+            while(left<right){
+                int sum=nums[left]+nums[right];
+                if((target+sum)>0){
                     right--;
                 }
-                else if(sum < 0) {
+                else if((target+sum)<0){
                     left++;
-                }
-                else {
+                }else if((target+sum)==0){
+                    result.insert({nums[i],nums[left],nums[right]});
+                    left++;
                     right--;
+                }else{
+                    ;
                 }
             }
         }
-
-        // Convert set<vector<int>> to vector<vector<int>>
-        vector<vector<int>> ans(result.begin(), result.end());
-
+        vector<vector <int>> ans(result.begin(),result.end());
         return ans;
+        
     }
 };
