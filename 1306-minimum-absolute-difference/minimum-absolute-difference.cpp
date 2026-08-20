@@ -1,5 +1,4 @@
-#include <vector>
-#include <algorithm>
+#include<climits>
 using namespace std;
 
 class Solution {
@@ -7,7 +6,7 @@ public:
     vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
         vector<vector<int>> result;
         sort(arr.begin(), arr.end());
-        int mindiff=10000000000;
+        int mindiff=INT_MAX;
         for(int k=1;k<arr.size();k++){
              mindiff=min(mindiff,arr[k]-arr[k-1]);
         }
